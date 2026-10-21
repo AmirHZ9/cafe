@@ -1,0 +1,573 @@
+<!doctype html>
+<html lang="fa" dir="rtl">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover" />
+    <meta name="robots" content="noindex, nofollow" />
+    <meta name="theme-color" content="#121010" />
+    <title>پیشنهاد طراحی پلتفرم دیجیتال کافه‌رستوران</title>
+    <meta
+      name="description"
+      content="پیش‌نمایش پیشنهادی برای توسعه مرحله‌ای منوی دیجیتال، رزرو میز و مدیریت سفارش‌ها؛ کانسپت طراحی برای کافه‌رستوران."
+    />
+    <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
+    <link rel="preload" href="/fonts/Vazirmatn.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/designs/menu-dark.png" as="image" fetchpriority="high" />
+  </head>
+  <body>
+    <a class="skip-link" href="#main">رفتن به محتوای اصلی</a>
+
+    <header class="site-head">
+      <div class="shell site-head__inner">
+        <div class="brand">
+          <svg class="brand__mark" viewBox="0 0 32 32" fill="none" aria-hidden="true">
+            <path
+              d="M27.5 4.5c.5 8.9-5.2 14.7-14 14.7H7.2c0-8.9 5.8-14.7 14.7-14.7h5.6Z"
+              fill="currentColor"
+              opacity=".92"
+            />
+            <path
+              d="M4.5 27.5c2.6-7.6 7.6-12.9 15.4-16"
+              stroke="currentColor"
+              stroke-width="2.1"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span class="brand__text">
+            <span class="brand__name">کافه نارون</span>
+            <span class="brand__sub">نمونه طراحی</span>
+          </span>
+        </div>
+        <span class="site-head__note">پیشنهاد طراحی</span>
+      </div>
+    </header>
+
+    <main id="main">
+      <section class="hero shell" aria-labelledby="page-title">
+        <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span> کانسپت طراحی</p>
+        <h1 id="page-title">پیشنهاد طراحی پلتفرم دیجیتال کافه‌رستوران</h1>
+        <p class="hero__sub">از منوی دیجیتال تا مدیریت سفارش‌ها</p>
+        <p class="hero__desc">
+          پیش‌نمایش پیشنهادی برای توسعه مرحله‌ای منوی دیجیتال، رزرو میز و مدیریت سفارش‌ها. نام کافه
+          نارون، تصاویر، قیمت‌ها و اطلاعات نمایش‌داده‌شده نمونه هستند و با هویت و نیازهای مجموعه شما
+          هماهنگ می‌شوند.
+        </p>
+      </section>
+
+      <section class="gallery shell" aria-labelledby="gallery-title">
+        <div class="section-head">
+          <h2 id="gallery-title">نمونه صفحات</h2>
+          <p class="section-head__hint">برای بزرگ‌نمایی، روی تصویر یا دکمه زیر آن بزنید.</p>
+        </div>
+
+        <div class="tabs" role="tablist" aria-label="صفحات نمونه">
+          <button
+            class="tab is-active"
+            id="tab-menu"
+            type="button"
+            role="tab"
+            aria-selected="true"
+            aria-controls="panel-menu"
+            tabindex="0"
+            data-tab="menu"
+          >
+            منوی دیجیتال
+          </button>
+          <button
+            class="tab"
+            id="tab-admin"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-admin"
+            tabindex="-1"
+            data-tab="admin"
+          >
+            مدیریت منو
+          </button>
+          <button
+            class="tab"
+            id="tab-reservation"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-reservation"
+            tabindex="-1"
+            data-tab="reservation"
+          >
+            رزرو میز
+          </button>
+          <button
+            class="tab"
+            id="tab-kitchen"
+            type="button"
+            role="tab"
+            aria-selected="false"
+            aria-controls="panel-kitchen"
+            tabindex="-1"
+            data-tab="kitchen"
+          >
+            پنل آشپزخانه
+          </button>
+        </div>
+
+        <div class="panels">
+          <section
+            class="panel"
+            id="panel-menu"
+            role="tabpanel"
+            aria-labelledby="tab-menu"
+            data-panel="menu"
+          >
+            <figure class="stage-card">
+              <div class="stage">
+                <div class="stage__media stage__media--phone" data-media>
+                  <button
+                    class="zoom-trigger"
+                    type="button"
+                    data-open="menu"
+                    aria-label="مشاهده تصویر «منوی دیجیتال» در اندازه اصلی"
+                  >
+                    <img
+                      src="/designs/menu-dark.png"
+                      width="941"
+                      height="1672"
+                      alt="منوی دیجیتال کافه نارون روی موبایل؛ دسته‌بندی محصولات، کارت نوشیدنی‌ها با قیمت و وضعیت موجودی آیتم‌ها"
+                      loading="eager"
+                      fetchpriority="high"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </button>
+                </div>
+              </div>
+              <figcaption class="panel__meta">
+                <div class="panel__head">
+                  <span class="phase">فاز اول</span>
+                  <h3>منوی دیجیتال</h3>
+                </div>
+                <p class="panel__desc">
+                  نمایش منو روی موبایل، دسته‌بندی محصولات، قیمت و وضعیت موجودی.
+                </p>
+                <div class="actions">
+                  <button class="btn btn--primary" type="button" data-open="menu">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M9 3H5a2 2 0 0 0-2 2v4m0 6v4a2 2 0 0 0 2 2h4m6 0h4a2 2 0 0 0 2-2v-4m0-6V5a2 2 0 0 0-2-2h-4"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    مشاهده در اندازه اصلی
+                  </button>
+                  <a
+                    class="quiet-link"
+                    href="/designs/menu-dark.png"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    بازکردن فایل اصلی
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M14 4h6v6M20 4 10 14M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section
+            class="panel"
+            id="panel-admin"
+            role="tabpanel"
+            aria-labelledby="tab-admin"
+            data-panel="admin"
+            hidden
+          >
+            <figure class="stage-card">
+              <div class="stage">
+                <div class="stage__media stage__media--desktop" data-media>
+                  <button
+                    class="zoom-trigger"
+                    type="button"
+                    data-open="admin"
+                    aria-label="مشاهده تصویر «مدیریت منو» در اندازه اصلی"
+                  >
+                    <img
+                      src="/designs/admin-dark.png"
+                      width="1536"
+                      height="1024"
+                      alt="پنل مدیریت منوی کافه نارون؛ فهرست آیتم‌ها همراه با تصویر، دسته‌بندی، قیمت و کلید موجودی، در کنار فرم ویرایش آیتم"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </button>
+                </div>
+              </div>
+              <figcaption class="panel__meta">
+                <div class="panel__head">
+                  <span class="phase">فاز اول</span>
+                  <h3>مدیریت منو</h3>
+                </div>
+                <p class="panel__desc">
+                  پنل مدیریت برای تغییر تصویر، قیمت، دسته‌بندی و موجودی آیتم‌ها.
+                </p>
+                <div class="actions">
+                  <button class="btn btn--primary" type="button" data-open="admin">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M9 3H5a2 2 0 0 0-2 2v4m0 6v4a2 2 0 0 0 2 2h4m6 0h4a2 2 0 0 0 2-2v-4m0-6V5a2 2 0 0 0-2-2h-4"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    مشاهده در اندازه اصلی
+                  </button>
+                  <a
+                    class="quiet-link"
+                    href="/designs/admin-dark.png"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    بازکردن فایل اصلی
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M14 4h6v6M20 4 10 14M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section
+            class="panel"
+            id="panel-reservation"
+            role="tabpanel"
+            aria-labelledby="tab-reservation"
+            data-panel="reservation"
+            hidden
+          >
+            <figure class="stage-card">
+              <div class="stage">
+                <div class="stage__media stage__media--phone" data-media>
+                  <button
+                    class="zoom-trigger"
+                    type="button"
+                    data-open="reservation"
+                    aria-label="مشاهده تصویر «رزرو میز» در اندازه اصلی"
+                  >
+                    <img
+                      src="/designs/reservation-dark.png"
+                      width="941"
+                      height="1672"
+                      alt="صفحه رزرو میز کافه نارون روی موبایل؛ انتخاب روز، تعداد مهمان‌ها، ساعت مراجعه و توضیحات اختیاری"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </button>
+                </div>
+              </div>
+              <figcaption class="panel__meta">
+                <div class="panel__head">
+                  <span class="phase">فاز دوم</span>
+                  <h3>رزرو میز</h3>
+                </div>
+                <p class="panel__desc">
+                  انتخاب روز، تعداد مهمان‌ها و ساعت مراجعه در موبایل.
+                </p>
+                <div class="actions">
+                  <button class="btn btn--primary" type="button" data-open="reservation">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M9 3H5a2 2 0 0 0-2 2v4m0 6v4a2 2 0 0 0 2 2h4m6 0h4a2 2 0 0 0 2-2v-4m0-6V5a2 2 0 0 0-2-2h-4"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    مشاهده در اندازه اصلی
+                  </button>
+                  <a
+                    class="quiet-link"
+                    href="/designs/reservation-dark.png"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    بازکردن فایل اصلی
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M14 4h6v6M20 4 10 14M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </figcaption>
+            </figure>
+          </section>
+
+          <section
+            class="panel"
+            id="panel-kitchen"
+            role="tabpanel"
+            aria-labelledby="tab-kitchen"
+            data-panel="kitchen"
+            hidden
+          >
+            <figure class="stage-card">
+              <div class="stage">
+                <div class="stage__media stage__media--desktop" data-media>
+                  <button
+                    class="zoom-trigger"
+                    type="button"
+                    data-open="kitchen"
+                    aria-label="مشاهده تصویر «پنل آشپزخانه» در اندازه اصلی"
+                  >
+                    <img
+                      src="/designs/kitchen-dark.png"
+                      width="1536"
+                      height="1024"
+                      alt="پنل آشپزخانه کافه نارون؛ سفارش‌های میزها در سه ستون سفارش جدید، در حال آماده‌سازی و آماده تحویل"
+                      loading="lazy"
+                      decoding="async"
+                      draggable="false"
+                    />
+                  </button>
+                </div>
+              </div>
+              <figcaption class="panel__meta">
+                <div class="panel__head">
+                  <span class="phase">فاز سوم</span>
+                  <h3>پنل آشپزخانه</h3>
+                </div>
+                <p class="panel__desc">
+                  نمایش سفارش‌های میزها در سه وضعیت جدید، در حال آماده‌سازی و آماده تحویل.
+                </p>
+                <div class="actions">
+                  <button class="btn btn--primary" type="button" data-open="kitchen">
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M9 3H5a2 2 0 0 0-2 2v4m0 6v4a2 2 0 0 0 2 2h4m6 0h4a2 2 0 0 0 2-2v-4m0-6V5a2 2 0 0 0-2-2h-4"
+                        stroke="currentColor"
+                        stroke-width="1.8"
+                        stroke-linecap="round"
+                      />
+                    </svg>
+                    مشاهده در اندازه اصلی
+                  </button>
+                  <a
+                    class="quiet-link"
+                    href="/designs/kitchen-dark.png"
+                    target="_blank"
+                    rel="noopener"
+                  >
+                    بازکردن فایل اصلی
+                    <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                      <path
+                        d="M14 4h6v6M20 4 10 14M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                        stroke="currentColor"
+                        stroke-width="1.7"
+                        stroke-linecap="round"
+                        stroke-linejoin="round"
+                      />
+                    </svg>
+                  </a>
+                </div>
+              </figcaption>
+            </figure>
+          </section>
+        </div>
+      </section>
+
+      <section class="roadmap shell" aria-labelledby="roadmap-title">
+        <div class="section-head">
+          <h2 id="roadmap-title">مسیر پیشنهادی توسعه</h2>
+          <p class="section-head__hint">اجرای مرحله‌ای، با تمرکز بر اولویت‌های مجموعه شما.</p>
+        </div>
+
+        <ol class="phases">
+          <li class="phase-card">
+            <div class="phase-card__top">
+              <span class="phase-card__num">۱</span>
+              <h3>فاز اول</h3>
+            </div>
+            <p>منوی دیجیتال و پنل مدیریت آیتم‌ها.</p>
+          </li>
+          <li class="phase-card">
+            <div class="phase-card__top">
+              <span class="phase-card__num">۲</span>
+              <h3>فاز دوم</h3>
+            </div>
+            <p>وب‌سایت معرفی، باشگاه مشتریان، رزرو میز و مدیریت رویدادها.</p>
+          </li>
+          <li class="phase-card">
+            <div class="phase-card__top">
+              <span class="phase-card__num">۳</span>
+              <h3>فاز سوم</h3>
+            </div>
+            <p>سفارش‌گیری سر میز و نمایش سفارش در پنل آشپزخانه و صندوق.</p>
+          </li>
+        </ol>
+
+        <p class="note">
+          <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+            <circle cx="12" cy="12" r="9" stroke="currentColor" stroke-width="1.6" />
+            <path
+              d="M12 11v5.2M12 7.6v.6"
+              stroke="currentColor"
+              stroke-width="1.8"
+              stroke-linecap="round"
+            />
+          </svg>
+          <span>
+            تصاویر، نمونه‌هایی از صفحات منتخب هستند. جزئیات امکانات و طراحی سایر صفحات پیش از اجرای
+            هر فاز نهایی می‌شوند.
+          </span>
+        </p>
+      </section>
+    </main>
+
+    <footer class="site-foot shell">
+      <div class="site-foot__card">
+        <div class="site-foot__row">
+          <div class="author">
+            <p class="author__name">طراحی پیشنهادی توسط امیرحسین زنگنه</p>
+            <p class="author__role">توسعه‌دهنده فرانت‌اند و بک‌اند</p>
+          </div>
+          <a
+            class="btn btn--primary"
+            href="https://amirhzdev.ir"
+            target="_blank"
+            rel="noopener noreferrer"
+          >
+            مشاهده نمونه‌کارها
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M19 12H5m6-6-6 6 6 6"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+                stroke-linejoin="round"
+              />
+            </svg>
+          </a>
+        </div>
+        <p class="site-foot__note">
+          این صفحه برای بررسی کانسپت اولیه تهیه شده است و قابلیت‌های نمایش‌داده‌شده در آن عملیاتی
+          نیستند.
+        </p>
+      </div>
+    </footer>
+
+    <dialog class="lightbox" id="lightbox" tabindex="-1" aria-labelledby="lightbox-title">
+      <div class="lightbox__shell">
+        <header class="lightbox__bar">
+          <div class="lightbox__heading">
+            <span class="lightbox__eyebrow">نمایش تصویر</span>
+            <h2 class="lightbox__title" id="lightbox-title">منوی دیجیتال</h2>
+          </div>
+
+          <div class="lightbox__tools">
+            <div class="zoombar" role="group" aria-label="کنترل بزرگ‌نمایی">
+              <button class="icon-btn" type="button" data-zoom="out" aria-label="کوچک‌نمایی">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path d="M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round" />
+                </svg>
+              </button>
+              <span class="zoom-value" data-zoom-value aria-hidden="true">۱۰۰٪</span>
+              <button class="icon-btn" type="button" data-zoom="in" aria-label="بزرگ‌نمایی">
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M12 5v14M5 12h14"
+                    stroke="currentColor"
+                    stroke-width="2"
+                    stroke-linecap="round"
+                  />
+                </svg>
+              </button>
+              <button
+                class="icon-btn"
+                type="button"
+                data-zoom="reset"
+                aria-label="بازنشانی اندازه"
+              >
+                <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                  <path
+                    d="M4 10V5m0 0h5m-5 0 4 4m7-5a8 8 0 1 1-6.3 2.9"
+                    stroke="currentColor"
+                    stroke-width="1.8"
+                    stroke-linecap="round"
+                    stroke-linejoin="round"
+                  />
+                </svg>
+              </button>
+            </div>
+
+            <a
+              class="lightbox__file"
+              data-file-link
+              href="/designs/menu-dark.png"
+              target="_blank"
+              rel="noopener"
+            >
+              بازکردن فایل اصلی
+              <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+                <path
+                  d="M14 4h6v6M20 4 10 14M18 14v5a1 1 0 0 1-1 1H5a1 1 0 0 1-1-1V7a1 1 0 0 1 1-1h5"
+                  stroke="currentColor"
+                  stroke-width="1.7"
+                  stroke-linecap="round"
+                  stroke-linejoin="round"
+                />
+              </svg>
+            </a>
+
+          </div>
+
+          <button class="lightbox__close" type="button" data-close>
+            بستن
+            <svg viewBox="0 0 24 24" fill="none" aria-hidden="true">
+              <path
+                d="M6 6l12 12M18 6 6 18"
+                stroke="currentColor"
+                stroke-width="1.9"
+                stroke-linecap="round"
+              />
+            </svg>
+          </button>
+        </header>
+
+        <div class="lightbox__stage" data-stage>
+          <div class="lightbox__canvas" data-canvas>
+            <img class="lightbox__img" data-image alt="" draggable="false" />
+          </div>
+          <p class="lightbox__hint" data-hint>
+            برای جابه‌جایی تصویر بکشید؛ با اسکرول، دکمه‌ها یا دو انگشت بزرگ‌نمایی کنید.
+          </p>
+        </div>
+      </div>
+      <p class="sr-only" aria-live="polite" data-live></p>
+    </dialog>
+
+    <script type="module" src="/src/main.js"></script>
+  </body>
+</html>
