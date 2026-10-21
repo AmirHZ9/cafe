@@ -74,16 +74,30 @@ function announce({ quiet = false } = {}) {
 }
 
 /*
- * Browsers do not start fetching images inside `display: none` blocks, which would
- * delay the first concept switch. Warm the hidden image up as soon as it becomes
- * relevant (style picked or page opened), so the fade never reveals an empty frame.
+ * Images stay lazy so the first paint only pays for the visible screen. As soon as
+ * the visitor shows intent (hover, focus or a tab click), the images of the target
+ * page start loading early, so the short fade rarely reveals an empty frame.
  */
 function warmImages(root = document) {
+  if (!root || typeof root.querySelectorAll !== 'function') return;
   root.querySelectorAll('img[loading="lazy"]').forEach((image) => {
     if (image.complete) return;
     image.loading = 'eager';
     image.fetchPriority = 'low';
   });
+}
+
+function panelImages(tab) {
+  const panel = document.getElementById(tab.getAttribute('aria-controls'));
+  return panel ? panel.querySelectorAll('.shot img') : [];
+}
+
+function warmOnIntent(element, getImages) {
+  const run = () => warmImages({ querySelectorAll: () => getImages() });
+
+  element.addEventListener('pointerenter', run, { once: true });
+  element.addEventListener('focus', run, { once: true });
+  element.addEventListener('pointerdown', run, { once: true });
 }
 
 /* ---------- Concept selector (radio group) ---------- */
@@ -94,7 +108,6 @@ function setConcept(name, { focus = false } = {}) {
   if (!CONCEPT_NAMES[name]) return;
 
   gallery.dataset.concept = name;
-  warmImages();
 
   conceptButtons.forEach((button) => {
     const isActive = button.dataset.concept === name;
@@ -105,6 +118,10 @@ function setConcept(name, { focus = false } = {}) {
 }
 
 conceptButtons.forEach((button) => {
+  warmOnIntent(button, () =>
+    Array.from(document.querySelectorAll(`.shot[data-shot-concept="${button.dataset.concept}"] img`))
+  );
+
   button.addEventListener('click', () => {
     // Choosing a style is a single-view decision: leave compare mode if needed.
     if (gallery.dataset.compare === 'true') setCompare(false, { silent: true });
@@ -166,14 +183,16 @@ function activateTab(tab, { focus = false } = {}) {
   activeTab = tab;
   if (focus) tab.focus();
 
-  warmImages(document.getElementById(tab.getAttribute('aria-controls')) || document);
-
-  if (changed) refresh();
+  if (changed) {
+    warmImages(document.getElementById(tab.getAttribute('aria-controls')) || document);
+    refresh();
+  }
   announce({ quiet: !changed && !focus });
 }
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => activateTab(tab));
+  warmOnIntent(tab, () => panelImages(tab));
 });
 
 tablist.addEventListener('keydown', (event) => {
@@ -209,6 +228,11 @@ function setCompare(isOn, { silent = false } = {}) {
   }
 }
 
+warmOnIntent(compareBtn, () => {
+  const panel = activePanel();
+  return panel ? panel.querySelectorAll('.shot img') : [];
+});
+
 compareBtn.addEventListener('click', () => {
   setCompare(gallery.dataset.compare !== 'true');
 });
@@ -216,7 +240,6 @@ compareBtn.addEventListener('click', () => {
 /* ---------- Initial state ---------- */
 
 setConcept(gallery.dataset.concept || 'light');
-warmImages();
 
-// The initial status is announced by the markup itself; keep the live region silent on load.
+// The initial status is already present in the markup; keep the live region silent on load.
 announce({ quiet: true });
