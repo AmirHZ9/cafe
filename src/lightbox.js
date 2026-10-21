@@ -161,6 +161,7 @@ export function createLightbox(designs) {
     if (!design) return;
 
     resetTransform();
+    dialog.dataset.concept = design.concept === 'light' ? 'light' : 'dark';
     titleEl.textContent = design.title;
     image.src = design.src;
     image.alt = design.alt;

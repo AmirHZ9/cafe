@@ -1,18 +1,24 @@
 import './styles.css';
 import { createLightbox } from './lightbox.js';
 
-/* Collect the panel data once; the lightbox reuses the same image sources. */
+const gallery = document.getElementById('gallery');
+const panelsWrap = document.querySelector('.panels');
+const statusEl = gallery.querySelector('[data-gallery-status]');
+
+/* ---------- Image registry (used by the full-screen viewer) ---------- */
+
 const designs = {};
 
-document.querySelectorAll('[data-panel]').forEach((panel) => {
-  const image = panel.querySelector('img');
-  const title = panel.querySelector('h3');
-  if (!image || !title) return;
+document.querySelectorAll('.shot').forEach((shot) => {
+  const image = shot.querySelector('img');
+  const title = shot.querySelector('.shot__title');
+  if (!image || !title || !shot.dataset.design) return;
 
-  designs[panel.dataset.panel] = {
-    title: title.textContent.trim(),
+  designs[shot.dataset.design] = {
+    title: title.textContent.replace(/\s+/g, ' ').trim(),
     src: image.getAttribute('src'),
-    alt: image.getAttribute('alt') || '',
+    alt: image.alt,
+    concept: shot.dataset.shotConcept,
   };
 });
 
@@ -22,81 +28,195 @@ document.addEventListener('click', (event) => {
   const trigger = event.target.closest('[data-open]');
   if (!trigger) return;
 
-  const designId = trigger.dataset.open;
-  if (!designs[designId]) return;
+  const design = designs[trigger.dataset.open];
+  if (!design) return;
 
-  lightbox.open(designId, trigger);
+  lightbox.open(trigger.dataset.open, trigger);
 });
 
-/* Tabs */
-const tablist = document.querySelector('[role="tablist"]');
-const tabs = tablist ? Array.from(tablist.querySelectorAll('[role="tab"]')) : [];
+/* ---------- Short fade when the shown content changes ---------- */
 
-let activeTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0] || null;
+let refreshTimer = 0;
 
-function panelFor(tab) {
-  return document.getElementById(tab.getAttribute('aria-controls'));
+function refresh() {
+  panelsWrap.classList.remove('is-refreshing');
+  void panelsWrap.offsetWidth;
+  panelsWrap.classList.add('is-refreshing');
+
+  window.clearTimeout(refreshTimer);
+  refreshTimer = window.setTimeout(() => {
+    panelsWrap.classList.remove('is-refreshing');
+  }, 400);
 }
 
-function activateTab(tab, { focus = false } = {}) {
-  if (!tab || tab === activeTab) {
-    if (tab && focus) tab.focus();
-    return;
+/* ---------- Status message for screen readers ---------- */
+
+const CONCEPT_NAMES = { light: 'روشن و آرام', dark: 'دارک و گرم' };
+let announceTimer = 0;
+
+function activePanel() {
+  return document.querySelector('[role="tabpanel"]:not([hidden])');
+}
+
+function announce({ quiet = false } = {}) {
+  if (quiet) return;
+
+  const page = activePanel()?.dataset.page || '';
+  const inCompare = gallery.dataset.compare === 'true';
+
+  statusEl.textContent = '';
+  window.clearTimeout(announceTimer);
+  announceTimer = window.setTimeout(() => {
+    statusEl.textContent = inCompare
+      ? `نمایش مقایسه‌ای صفحه ${page} در دو سبک روشن و دارک.`
+      : `کانسپت ${CONCEPT_NAMES[gallery.dataset.concept]}، صفحه ${page}.`;
+  }, 160);
+}
+
+/*
+ * Browsers do not start fetching images inside `display: none` blocks, which would
+ * delay the first concept switch. Warm the hidden image up as soon as it becomes
+ * relevant (style picked or page opened), so the fade never reveals an empty frame.
+ */
+function warmImages(root = document) {
+  root.querySelectorAll('img[loading="lazy"]').forEach((image) => {
+    if (image.complete) return;
+    image.loading = 'eager';
+    image.fetchPriority = 'low';
+  });
+}
+
+/* ---------- Concept selector (radio group) ---------- */
+
+const conceptButtons = Array.from(document.querySelectorAll('.concept'));
+
+function setConcept(name, { focus = false } = {}) {
+  if (!CONCEPT_NAMES[name]) return;
+
+  gallery.dataset.concept = name;
+  warmImages();
+
+  conceptButtons.forEach((button) => {
+    const isActive = button.dataset.concept === name;
+    button.setAttribute('aria-checked', String(isActive));
+    button.tabIndex = isActive ? 0 : -1;
+    if (focus && isActive) button.focus();
+  });
+}
+
+conceptButtons.forEach((button) => {
+  button.addEventListener('click', () => {
+    // Choosing a style is a single-view decision: leave compare mode if needed.
+    if (gallery.dataset.compare === 'true') setCompare(false, { silent: true });
+    setConcept(button.dataset.concept);
+    refresh();
+    announce();
+  });
+});
+
+const conceptGroup = document.querySelector('.concepts');
+
+conceptGroup.addEventListener('keydown', (event) => {
+  const index = conceptButtons.indexOf(document.activeElement);
+  if (index === -1) return;
+
+  let nextIndex = null;
+
+  // In RTL, the left arrow moves forward.
+  if (event.key === 'ArrowLeft' || event.key === 'ArrowDown') {
+    nextIndex = (index + 1) % conceptButtons.length;
+  } else if (event.key === 'ArrowRight' || event.key === 'ArrowUp') {
+    nextIndex = (index - 1 + conceptButtons.length) % conceptButtons.length;
+  } else if (event.key === 'Home') {
+    nextIndex = 0;
+  } else if (event.key === 'End') {
+    nextIndex = conceptButtons.length - 1;
   }
+
+  if (nextIndex === null) return;
+  event.preventDefault();
+
+  const nextButton = conceptButtons[nextIndex];
+  if (gallery.dataset.compare === 'true') setCompare(false, { silent: true });
+  setConcept(nextButton.dataset.concept, { focus: true });
+  refresh();
+  announce();
+});
+
+/* ---------- Tabs ---------- */
+
+const tabs = Array.from(document.querySelectorAll('[role="tab"]'));
+const tablist = document.querySelector('[role="tablist"]');
+let activeTab = tabs.find((tab) => tab.getAttribute('aria-selected') === 'true') || tabs[0];
+
+function activateTab(tab, { focus = false } = {}) {
+  if (!tab) return;
+
+  const changed = tab !== activeTab;
 
   tabs.forEach((item) => {
     const isActive = item === tab;
     item.setAttribute('aria-selected', String(isActive));
     item.tabIndex = isActive ? 0 : -1;
-    item.classList.toggle('is-active', isActive);
 
-    const panel = panelFor(item);
-    if (!panel) return;
-
-    if (isActive) {
-      panel.hidden = false;
-      panel.classList.remove('is-entering');
-      // Restart the short fade even when returning to a previously opened tab.
-      void panel.offsetWidth;
-      panel.classList.add('is-entering');
-    } else {
-      panel.hidden = true;
-      panel.classList.remove('is-entering');
-    }
+    const panel = document.getElementById(item.getAttribute('aria-controls'));
+    if (panel) panel.hidden = !isActive;
   });
 
   activeTab = tab;
   if (focus) tab.focus();
+
+  warmImages(document.getElementById(tab.getAttribute('aria-controls')) || document);
+
+  if (changed) refresh();
+  announce({ quiet: !changed && !focus });
 }
 
 tabs.forEach((tab) => {
   tab.addEventListener('click', () => activateTab(tab));
 });
 
-if (tablist) {
-  tablist.addEventListener('keydown', (event) => {
-    const index = tabs.indexOf(document.activeElement);
-    if (index === -1) return;
+tablist.addEventListener('keydown', (event) => {
+  const index = tabs.indexOf(document.activeElement);
+  if (index === -1) return;
 
-    let nextIndex = null;
+  let nextIndex = null;
 
-    // In RTL layouts the left arrow moves forward and the right arrow moves back.
-    if (event.key === 'ArrowLeft') nextIndex = (index + 1) % tabs.length;
-    if (event.key === 'ArrowRight') nextIndex = (index - 1 + tabs.length) % tabs.length;
-    if (event.key === 'Home') nextIndex = 0;
-    if (event.key === 'End') nextIndex = tabs.length - 1;
+  // In RTL, the left arrow moves forward.
+  if (event.key === 'ArrowLeft') nextIndex = (index + 1) % tabs.length;
+  if (event.key === 'ArrowRight') nextIndex = (index - 1 + tabs.length) % tabs.length;
+  if (event.key === 'Home') nextIndex = 0;
+  if (event.key === 'End') nextIndex = tabs.length - 1;
 
-    if (nextIndex === null) return;
-    event.preventDefault();
-    activateTab(tabs[nextIndex], { focus: true });
-  });
+  if (nextIndex === null) return;
+  event.preventDefault();
+  activateTab(tabs[nextIndex], { focus: true });
+});
+
+/* ---------- Compare mode ---------- */
+
+const compareBtn = document.getElementById('compare-toggle');
+const compareLabel = compareBtn.querySelector('[data-compare-label]');
+
+function setCompare(isOn, { silent = false } = {}) {
+  gallery.dataset.compare = isOn ? 'true' : 'false';
+  compareBtn.setAttribute('aria-pressed', String(isOn));
+  compareLabel.textContent = isOn ? 'بازگشت به نمایش تکی' : 'مقایسه دو سبک';
+
+  if (!silent) {
+    refresh();
+    announce();
+  }
 }
 
-/* Drop the entering class once the fade finishes so it can run again later. */
-document.querySelectorAll('.panel').forEach((panel) => {
-  panel.addEventListener('animationend', (event) => {
-    if (event.animationName === 'panel-in') {
-      panel.classList.remove('is-entering');
-    }
-  });
+compareBtn.addEventListener('click', () => {
+  setCompare(gallery.dataset.compare !== 'true');
 });
+
+/* ---------- Initial state ---------- */
+
+setConcept(gallery.dataset.concept || 'light');
+warmImages();
+
+// The initial status is announced by the markup itself; keep the live region silent on load.
+announce({ quiet: true });
